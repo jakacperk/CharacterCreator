@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h3>Hi {{ user.username }}!</h3>
+  <button><a href="{% url 'logout' %}">Log Out</a></button>
+  <p> <a href="http://127.0.0.1:8000/create_character" >Kreator postaci</a> </p>
+{% else %}
+  <h3>You are not logged in</h3>
+  <button><a href="{% url 'login' %}">Log In</a></button>
+{% endif %}
+{% endblock %}

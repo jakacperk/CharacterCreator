@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Create your character!{% endblock %}
+
+{% block content %}
+  <p>Krok Pierwszy</p>
+<h3>{{ error_msg }}</h3>
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+<input type="submit" value="Save">
+</form>
+
+{% endblock %}
