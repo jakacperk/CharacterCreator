@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Info o postaci{% endblock %}
+
+{% block content %}
+<h2>Imię postaci: {{usercharacter.name}}</h2>
+<h3>Twórca postaci: {{usercharacter.creatorId}}</h3>
+<p>rasa: {{usercharacter.get_race_display}}  || klasa: {{usercharacter.characterClass}}</p>
+<p>level: {{usercharacter.level}}  || proficency bonus: {{usercharacter.proficiencyBonus}}</p>
+<p>siła: {{usercharacterattributes.strength}}  ||  zręczność: {{usercharacterattributes.dexterity}}  ||  wytrzymałość: {{usercharacterattributes.constitution}} || inteligencja: {{usercharacterattributes.intelligence}}  ||  mądrość: {{usercharacterattributes.wisdom}}  ||  charyzma:  {{usercharacterattributes.charisma}}</p>
+<p></p>
+<a href="http://127.0.0.1:8000/characters">powrót</a>
+{% endblock %}

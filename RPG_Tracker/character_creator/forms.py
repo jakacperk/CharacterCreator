@@ -41,10 +41,11 @@ RACES = [
 class CharacterCreatorForm(forms.ModelForm):
     class Meta:
         model = UserCharacter
-        exclude = ('characterId', 'creatorId')
+        exclude = ('creatorId', 'proficiencyBonus')
 
 class CharacterAttributesForm(forms.ModelForm):
     class Meta:
         model = UserCharacterAttributes
-        exclude = ('',)
-        labels = {"whichCharacter": "Która postać"}
+        exclude = ('whichCharacter',)
+
+

@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
-from character_creator.views import CreateCharacter, AddAttributes
+from character_creator.views import CreateCharacter, AddAttributes, TestView, YourCharacters, CharacterView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('create_character/', CreateCharacter.as_view(), name='character-creator'),
-    path('create_character/2/', AddAttributes.as_view(), name='add-attributes')
+    path('create_character/2/', AddAttributes.as_view(), name='add-attributes'),
+    path('test/', TestView.as_view(), name='test'),
+    path('characters/', YourCharacters.as_view(), name='characters'),
+    path('characters/<int:characterId>/', CharacterView.as_view(), name='character-view'),
 ]

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Twoje postacie{% endblock %}
+
+{% block content %}
+{% if object_list %}
+<ul>
+{% for usercharacter in object_list %}
+    <li>
+        {{usercharacter}}
+    </li>
+    {% endfor %}
+    </ul>
+{% else %}
+nie ma postaci do wyświetlenia
+{% endif %}
+<p><a href="http://127.0.0.1:8000/">powrót</a></p>
+{% endblock %}
