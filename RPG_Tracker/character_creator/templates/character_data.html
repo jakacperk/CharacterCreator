@@ -4,10 +4,11 @@
 
 {% block content %}
 <h2>Imię postaci: {{usercharacter.name}}</h2>
-<h3>Twórca postaci: {{usercharacter.creatorId}}</h3>
+<h3>Twórca postaci: {{usercharacter.creatorId}}  ||  Id postaci: {{usercharacter.characterId}}</h3>
 <p>rasa: {{usercharacter.get_race_display}}  || klasa: {{usercharacter.characterClass}}</p>
 <p>level: {{usercharacter.level}}  || proficency bonus: {{usercharacter.proficiencyBonus}}</p>
 <p>siła: {{usercharacterattributes.strength}}  ||  zręczność: {{usercharacterattributes.dexterity}}  ||  wytrzymałość: {{usercharacterattributes.constitution}} || inteligencja: {{usercharacterattributes.intelligence}}  ||  mądrość: {{usercharacterattributes.wisdom}}  ||  charyzma:  {{usercharacterattributes.charisma}}</p>
-<p></p>
-<a href="http://127.0.0.1:8000/characters">powrót</a>
+<p>HP: {{usercharacter.hitPoints}}  ||  AC: {{usercharacter.armourClass}}  || spell sloty: {{usercharacter.spellSlots}}  ||  prędkość ruchu: {{usercharacter.speed}}</p>
+<p>notatki: {{usercharacter.notes}}</p>
+<a href="{% url 'characters' %}">powrót  </a>|| <a href="{% url 'edit-character' usercharacter.characterId %}">  edytuj postać</a>
 {% endblock %}

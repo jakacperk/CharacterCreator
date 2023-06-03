@@ -7,8 +7,9 @@
 <h3>Hi {{ user.username }}!</h3>
   <button><a href="{% url 'logout' %}">Log Out</a></button>
   <p>
-    <a href="http://127.0.0.1:8000/create_character" >Kreator postaci</a>
-    <a href="http://127.0.0.1:8000/characters">Twoje postacie</a>
+    <a href="http://127.0.0.1:8000/create_character" >Kreator postaci</a>  ||
+    <a href="http://127.0.0.1:8000/characters">Twoje postacie</a>  ||
+    <a href="{% url 'create-session' %}">Stwórz sesje</a>
   </p>
 
 {% else %}

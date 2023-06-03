@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}edytuj info o postaci{% endblock %}
+
+{% block content %}
+<h3>{{ error_msg }}</h3>
+<h3>{{ error_msg2 }}</h3>
+<form method="POST" action="">
+      {% csrf_token %}
+<p>{{character_creator_form}}</p>
+<p>{{character_attributes_form.as_ul}}</p>
+<input type="submit" value="Save">
+    </form>
+<a href="{% url 'character-view' usercharacter.characterId %}">powrót</a>
+{% endblock %}

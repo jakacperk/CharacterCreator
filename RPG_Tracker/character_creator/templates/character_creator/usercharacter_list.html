@@ -5,9 +5,10 @@
 {% block content %}
 {% if object_list %}
 <ul>
+    <h3>Twoje Postacie:</h3>
 {% for usercharacter in object_list %}
     <li>
-        {{usercharacter}}
+        <a href="http://127.0.0.1:8000/characters/{{usercharacter.characterId}}">{{usercharacter}}</a>
     </li>
     {% endfor %}
     </ul>

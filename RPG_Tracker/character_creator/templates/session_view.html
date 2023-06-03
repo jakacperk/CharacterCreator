@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}twoja sesja{% endblock %}
+
+{% block content %}
+
+{% if gamesession.playerOneCharacter is not None %}
+  <h3>{{ gamesession.playerOneCharacter }}</h3>
+<p>Twórca postaci: {{gamesession.playerOneCharacter.creatorId}}  ||  Id postaci: {{gamesession.playerOneCharacter.characterId}}</p>
+<p>rasa: {{gamesession.playerOneCharacter.get_race_display}}  || klasa: {{gamesession.playerOneCharacter.characterClass}}</p>
+<p>level: {{gamesession.playerOneCharacter.level}}  || proficency bonus: {{gamesession.playerOneCharacter.proficiencyBonus}}</p>
+<p>siła: {{playerOneAtt.strength}}  ||  zręczność: {{playerOneAtt.dexterity}}  ||  wytrzymałość: {{playerOneAtt.constitution}} || inteligencja: {{playerOneAtt.intelligence}}  ||  mądrość: {{playerOneAtt.wisdom}}  ||  charyzma:  {{playerOneAtt.charisma}}</p>
+<p>HP: {{gamesession.playerOneCharacter.hitPoints}}  ||  AC: {{gamesession.playerOneCharacter.armourClass}}  || spell sloty: {{gamesession.playerOneCharacter.spellSlots}}  ||  prędkość ruchu: {{gamesession.playerOneCharacter.speed}}</p>
+<p>notatki: {{gamesession.playerOneCharacter.notes}}</p>
+
+{% endif %}
+
+{% if gamesession.playerTwoCharacter is not None %}
+  <h3>{{ gamesession.playerTwoCharacter }}</h3>
+<p>Twórca postaci: {{gamesession.playerTwoCharacter.creatorId}}  ||  Id postaci: {{gamesession.playerTwoCharacter.characterId}}</p>
+<p>rasa: {{gamesession.playerTwoCharacter.get_race_display}}  || klasa: {{gamesession.playerTwoCharacter.characterClass}}</p>
+<p>level: {{gamesession.playerTwoCharacter.level}}  || proficency bonus: {{gamesession.playerTwoCharacter.proficiencyBonus}}</p>
+<p>siła: {{playerTwoAtt.strength}}  ||  zręczność: {{playerTwoAtt.dexterity}}  ||  wytrzymałość: {{playerTwoAtt.constitution}} || inteligencja: {{playerTwoAtt.intelligence}}  ||  mądrość: {{playerTwoAtt.wisdom}}  ||  charyzma:  {{playerTwoAtt.charisma}}</p>
+<p>HP: {{gamesession.playerTwoCharacter.hitPoints}}  ||  AC: {{gamesession.playerTwoCharacter.armourClass}}  || spell sloty: {{gamesession.playerTwoCharacter.spellSlots}}  ||  prędkość ruchu: {{gamesession.playerTwoCharacter.speed}}</p>
+<p>notatki: {{gamesession.playerTwoCharacter.notes}}</p>
+{% endif %}
+
+{% if gamesession.playerThreeCharacter is not None %}
+  <h3>{{ gamesession.playerThreeCharacter }}</h3>
+<p>Twórca postaci: {{gamesession.playerThreeCharacter.creatorId}}  ||  Id postaci: {{gamesession.playerThreeCharacter.characterId}}</p>
+<p>rasa: {{gamesession.playerThreeCharacter.get_race_display}}  || klasa: {{gamesession.playerThreeCharacter.characterClass}}</p>
+<p>level: {{gamesession.playerThreeCharacter.level}}  || proficency bonus: {{gamesession.playerThreeCharacter.proficiencyBonus}}</p>
+<p>siła: {{playerThreeAtt.strength}}  ||  zręczność: {{playerThreeAtt.dexterity}}  ||  wytrzymałość: {{playerThreeAtt.constitution}} || inteligencja: {{playerThreeAtt.intelligence}}  ||  mądrość: {{playerThreeAtt.wisdom}}  ||  charyzma:  {{playerThreeAtt.charisma}}</p>
+<p>HP: {{gamesession.playerThreeCharacter.hitPoints}}  ||  AC: {{gamesession.playerThreeCharacter.armourClass}}  || spell sloty: {{gamesession.playerThreeCharacter.spellSlots}}  ||  prędkość ruchu: {{gamesession.playerThreeCharacter.speed}}</p>
+<p>notatki: {{gamesession.playerThreeCharacter.notes}}</p>
+{% endif %}
+
+{% if gamesession.playerFourCharacter is not None %}
+  <h3>{{ gamesession.playerFourCharacter }}</h3>
+<p>Twórca postaci: {{gamesession.playerFourCharacter.creatorId}}  ||  Id postaci: {{gamesession.playerFourCharacter.characterId}}</p>
+<p>rasa: {{gamesession.playerFourCharacter.get_race_display}}  || klasa: {{gamesession.playerFourCharacter.characterClass}}</p>
+<p>level: {{gamesession.playerFourCharacter.level}}  || proficency bonus: {{gamesession.playerFourCharacter.proficiencyBonus}}</p>
+<p>siła: {{playerFourAtt.strength}}  ||  zręczność: {{playerFourAtt.dexterity}}  ||  wytrzymałość: {{playerFourAtt.constitution}} || inteligencja: {{playerFourAtt.intelligence}}  ||  mądrość: {{playerFourAtt.wisdom}}  ||  charyzma:  {{playerFourAtt.charisma}}</p>
+<p>HP: {{gamesession.playerFourCharacter.hitPoints}}  ||  AC: {{gamesession.playerFourCharacter.armourClass}}  || spell sloty: {{gamesession.playerFourCharacter.spellSlots}}  ||  prędkość ruchu: {{gamesession.playerFourCharacter.speed}}</p>
+<p>notatki: {{gamesession.playerFourCharacter.notes}}</p>
+{% endif %}
+
+{{sessionStats.as_p}}
+
+<form method="POST" action="">
+  {% csrf_token %}
+<input type="submit" value="Zakończ sesje">
+</form>
+{% endblock %}

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 
-from character_creator.views import CreateCharacter, AddAttributes, TestView, YourCharacters, CharacterView
+from character_creator.views import CreateCharacter, AddAttributes, YourCharacters, CharacterView, EditCharacterView, SessionCreateView, SessionView
 
 
 urlpatterns = [
@@ -27,7 +27,10 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('create_character/', CreateCharacter.as_view(), name='character-creator'),
     path('create_character/2/', AddAttributes.as_view(), name='add-attributes'),
-    path('test/', TestView.as_view(), name='test'),
     path('characters/', YourCharacters.as_view(), name='characters'),
     path('characters/<int:characterId>/', CharacterView.as_view(), name='character-view'),
+    path('characters/<int:characterId>/edit', EditCharacterView.as_view(), name='edit-character'),
+    path('session/create', SessionCreateView.as_view(), name='create-session'),
+    path('session/view/<int:sessionId>', SessionView.as_view(), name='session-view'),
+
 ]

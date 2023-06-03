@@ -1,6 +1,7 @@
 from django import forms
 
-from character_creator.models import UserCharacter, UserCharacterAttributes
+from character_creator.models import UserCharacter, UserCharacterAttributes, GameSession, CurrentSessionStats
+
 
 INTEGER_CHOICES = [tuple([x, x]) for x in range(1, 21)]
 
@@ -41,11 +42,24 @@ RACES = [
 class CharacterCreatorForm(forms.ModelForm):
     class Meta:
         model = UserCharacter
-        exclude = ('creatorId', 'proficiencyBonus')
+        exclude = ('creatorId', 'proficiencyBonus',)
 
 class CharacterAttributesForm(forms.ModelForm):
     class Meta:
         model = UserCharacterAttributes
         exclude = ('whichCharacter',)
+
+
+class CreateSessionForm(forms.ModelForm):
+    class Meta:
+        model = GameSession
+        exclude = ('sessionMaster',)
+
+
+class SessionStatsForm(forms.ModelForm):
+    class Meta:
+        model = CurrentSessionStats
+        exclude = ('whichSession',)
+        widgets = {'notes': forms.Textarea(attrs={'size':80})}
 
 

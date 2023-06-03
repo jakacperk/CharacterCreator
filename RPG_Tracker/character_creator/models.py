@@ -32,7 +32,7 @@ RACES = (
 User = settings.AUTH_USER_MODEL
 
 
-class UserCharacter(models.Model):
+class UserCharacter(models.Model): #Base of user characters
     characterId = models.AutoField(primary_key=True, unique=True)
     creatorId = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=128)
@@ -41,8 +41,13 @@ class UserCharacter(models.Model):
     level = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(20)])
     characterClass = models.IntegerField(choices=CLASSES)
     proficiencyBonus = models.CharField(max_length=2, blank=True)
+    hitPoints = models.IntegerField(default=5)
+    armourClass = models.IntegerField(default=1)
+    spellSlots = models.IntegerField(default=0)
+    speed = models.IntegerField(default=25)
+    notes = models.CharField(max_length=1024, default="")
 
-    def calculate_proficiency(self):
+    def calculate_proficiency(self): #calculate proficiency bonus
         if self.level < 4:
             return 2
         elif 3 < self.level < 9:
@@ -54,7 +59,7 @@ class UserCharacter(models.Model):
         elif 16 < self.level:
             return 6
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): #saves proficiency bonus
         self.proficiencyBonus = self.calculate_proficiency()
         super(UserCharacter, self).save(*args, **kwargs)
 
@@ -62,15 +67,16 @@ class UserCharacter(models.Model):
         return f"{self.name}"
 
 
-class UserCharacterAttributes(models.Model):
+class UserCharacterAttributes(models.Model): #Base of characters attributes
     strength = models.IntegerField(default=1)
     dexterity = models.IntegerField(default=1)
     constitution = models.IntegerField(default=1)
     intelligence = models.IntegerField(default=1)
     wisdom = models.IntegerField(default=1)
     charisma = models.IntegerField(default=1)
+    whichCharacter = models.OneToOneField(UserCharacter, on_delete=models.CASCADE, primary_key=True)
 
-    acrobatics = models.IntegerField(default=0)
+"""    acrobatics = models.IntegerField(default=0)
     acrobatics_proficient = models.BooleanField(default=False)
     animal_handling = models.IntegerField(default=0)
     animal_handling_proficient = models.BooleanField(default=False)
@@ -123,29 +129,28 @@ class UserCharacterAttributes(models.Model):
         return (self.wisdom - 10) // 2
 
     def charisma_bonus(self):
-        return (self.charisma - 10) // 2
-
-    whichCharacter = models.OneToOneField(UserCharacter, on_delete=models.CASCADE, primary_key=True)
+        return (self.charisma - 10) // 2"""
 
 
-"""class CharacterProficiences(models.Model):
 
-    acrobatics = models.IntegerField(default=UserCharacterAttributes.dexterity)    animal_handling = models.IntegerField(default=wisdom_modifier)
-    arcana = models.IntegerField(default=intelligence_modifier)
-    athletics = models.IntegerField(default=strength_modifier)
-    deception = models.IntegerField(default=charisma_modifier)
-    history = models.IntegerField(default=intelligence_modifier)
-    insight = models.IntegerField(default=wisdom_modifier)
-    intimidation = models.IntegerField(default=charisma_modifier)
-    investigation = models.IntegerField(default=intelligence_modifier)
-    medicine = models.IntegerField(default=wisdom_modifier)
-    nature = models.IntegerField(default=intelligence_modifier)
-    perception = models.IntegerField(default=wisdom_modifier)
-    performance = models.IntegerField(default=charisma_modifier)
-    persuasion = models.IntegerField(default=charisma_modifier)
-    religion = models.IntegerField(default=intelligence_modifier)
-    sleight_of_hand = models.IntegerField(default=dexterity_modifier)
-    stealth = models.IntegerField(default=dexterity_modifier)
-    survival = models.IntegerField(default=wisdom_modifier)
+class GameSession(models.Model): #stores session
+    sessionMaster = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    sessionId = models.AutoField(primary_key=True)
+    playerOneCharacter = models.ForeignKey(UserCharacter, null=True, blank=True, on_delete=models.SET_NULL, related_name="player_one")
+    playerTwoCharacter = models.ForeignKey(UserCharacter, null=True, blank=True, on_delete=models.SET_NULL, related_name="player_two")
+    playerThreeCharacter = models.ForeignKey(UserCharacter, null=True, blank=True, on_delete=models.SET_NULL, related_name="player_three")
+    playerFourCharacter = models.ForeignKey(UserCharacter, null=True, blank=True, on_delete=models.SET_NULL, related_name="player_four")
 
-    whichCharacter = models.OneToOneField(UserCharacter, on_delete=models.CASCADE, primary_key=True)"""
+
+class CurrentSessionStats(models.Model): #stores temporary values
+    whichSession = models.ForeignKey(GameSession, null=False, on_delete=models.CASCADE)
+    notes = models.CharField(max_length=1024, blank=True, null=True)
+
+
+
+
+
+
+
+
+
